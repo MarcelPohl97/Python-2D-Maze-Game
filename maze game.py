@@ -5,7 +5,6 @@ game_window = Tk()
 game_root = Canvas(game_window, width=1280, height=832, bg="green")
 game_root.pack()
 
-
 move_left = PhotoImage(file="right.gif")
 move_right = PhotoImage(file="left.gif")
 jump_ = PhotoImage(file="jump.gif")
@@ -16,15 +15,12 @@ move_right_enemy = PhotoImage(file="left_enemy.gif")
 jump_enemy = PhotoImage(file="jump_enemy.gif")
 stop_enemy = PhotoImage(file="stop_enemy.gif")
 
-
-
-
 colors = ["#abef4c", "#69dff4", "#bc85f7", "#ff72aa", "#fc3a3a", "#3aaefc", "#ffc711", "#f47b11", "#f43a11"]
+
 
 class Player:
     def __init__(self):
         self.player_id = game_root.create_image(32, 32, image=move_left)
-
         self.Left = False
         self.Right = False
         self.Up = False
@@ -92,9 +88,9 @@ class Map:
     def player_collision_x(self):
         x1, y1, x2, y2 = game_root.coords(self.map_id)
         collision = game_root.find_overlapping(x1, y1, x2, y2)
+        
         if S.Right == True and S.player_id in collision:
             game_root.move(S.player_id, -S.speed, 0)
-
 
         if S.Left == True and S.player_id in collision:
             game_root.move(S.player_id, S.speed, 0)
@@ -104,6 +100,7 @@ class Map:
     def player_collision_y(self):
         x1, y1, x2, y2 = game_root.coords(self.map_id)
         collision = game_root.find_overlapping(x1, y1, x2, y2)
+        
         if S.Up == True and S.player_id in collision:
             game_root.move(S.player_id, 0, - S.jump)
 
@@ -142,7 +139,6 @@ class Map:
         game_root.after(100, self.enemy_collision_x)
 
 
-
 class Enemy:
     def __init__(self, x, y):
         self.enemy_id = game_root.create_image(32, 32, image=stop_enemy)
@@ -169,6 +165,7 @@ class Enemy:
         else:
             self.speed = 0
             self.jump = 0
+            
         game_root.move(self.enemy_id, self.speed, self.jump)
         game_root.after(100, self.enemy_update)
 
@@ -187,6 +184,7 @@ level_1 = ["####################",
            "# ##  #     # ### ##",
            "#         E   #    #",
            "####################"]
+
 levels.append(level_1)
 
 def setup_maze(level):
